@@ -5,12 +5,11 @@ This project simulates opening 6 Play Booster packs of Edge of Eternities like y
 It uses a bulk data file downloaded from Scryfall, then parses that data to pull out the cards that can appear in Play Booster packs of the Edge of Eternities set.  Once the data has been parsed it simulates opening 6 packs and places information about the cards into an excel file.
 
 Prerequisites:
-You will need the following:
-•	Python 3.12
-•	openpyxl 3.1.5
-•	pandas 2.3.1
-•	xlsxwriter 3.2.5
-•	Microsoft Excel 
+1. Python 3.12
+2. openpyxl 3.1.5
+3. pandas 2.3.1
+4. xlsxwriter 3.2.5
+5. Microsoft Excel 
 
 Installation:
 1.	Clone the repo: git clone https://github.com/NateHaskell/magic_sealed_generator
