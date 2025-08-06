@@ -3,144 +3,159 @@ import random
 from parse_json import *
 
 
-pack = []
+packs = []
 
 
-# Determine if one common will be replaced by a Special Guests card - 1.8% chance
-special_guests_roll = random.random()
-if special_guests_roll <= 0.018:
-    pack.append(random.choice(eoe_special_guests))
+def generate_sealed_pool():
 
-    for i in range(5):
-        pack.append((random.choice(eoe_commons)))
+    pack_count = 0
+    while pack_count < 6:
 
-else:
-    for i in range(7):
-        pack.append((random.choice(eoe_commons)))
+        # Determine if one common will be replaced by a Special Guests card - 1.8% chance
+        special_guests_roll = random.random()
+        if special_guests_roll <= 0.018:
+            packs.append(random.choice(eoe_special_guests))
 
+            for i in range(6):
+                packs.append((random.choice(eoe_commons)))
 
-wildcard_roll = random.random()
-
-#<1% chance for mythic borderless triumphant or surreal space card
-if wildcard_roll <= 0.0015:
-    wildcard = random.choice(mythic_triumphant_and_surreal_cards)
-    pack.append(wildcard)
-
-#<1% chance for mythic borderless viewport land
-elif wildcard_roll <= 0.0035:
-    wildcard = random.choice(mythic_borderless_viewport_lands)
-    pack.append(wildcard)
-
-#<1% chance for rare borderless triumphant or surreal space card
-elif wildcard_roll <= 0.006:
-    wildcard = random.choice(rare_triumphant_and_surreal_cards)
-    pack.append(wildcard)
-
-#<1% chance for main set mythic less 
-elif wildcard_roll <= 0.009:
-    wildcard = random.choice(eoe_main_set_mythics)
-    pack.append(wildcard)
-
-#1% chance for rare borderless viewport land
-elif wildcard_roll <= 0.019:
-    wildcard = random.choice(rare_borderless_viewport_lands)
-    pack.append(wildcard)
-
-#2.5% chance for mythic stellar sights
-elif wildcard_roll <= 0.044:
-    wildcard = random.choice(mythic_stellar_sights)
-    pack.append(wildcard)
-
-#10% chance for rare stellar sights
-elif wildcard_roll <= 0.144:
-    wildcard = random.choice(rare_stellar_sights)
-    pack.append(wildcard)  
-
-#10.6% chance for main set rare
-elif wildcard_roll <= 0.25:
-    wildcard = random.choice(eoe_main_set_rares)
-    pack.append(wildcard)  
-
-#12.5% chance for common
-elif wildcard_roll <= 0.375:
-    wildcard = random.choice(eoe_commons)
-    pack.append(wildcard)  
-
-#62.5% chance for uncommon
-elif wildcard_roll <= 1.0:
-    wildcard = random.choice(eoe_uncommons)
-    pack.append(wildcard)     
+        else:
+            for i in range(7):
+                packs.append((random.choice(eoe_commons)))
 
 
-#add 3 random uncommons for the uncommon slots
-for i in range(3):
-        pack.append((random.choice(eoe_uncommons)))
-
-#rare or mythic slot
-rare_roll = random.random()
-
-#<1% chance for mythic viewport land
-if rare_roll <= 0.006:
-    rare_slot = random.choice(mythic_borderless_viewport_lands)
-    pack.append(rare_slot)
-
-#<1% chance for mythic borderless surreal space or triumphant
-elif rare_roll <= 0.0014:
-    rare_slot = random.choice(mythic_triumphant_and_surreal_cards)
-    pack.append(rare_slot)
-
-#4% chance for rare borderless triumphant or surreal space card
-elif rare_roll <= 0.054:
-    rare_slot = random.choice(rare_triumphant_and_surreal_cards)
-    pack.append(rare_slot)
-
-#14.2% chance for main set mythic
-elif rare_roll <= 0.196:
-    rare_slot = random.choice(eoe_main_set_mythics)
-    pack.append(rare_slot)
-
-#14.2% chance for main set mythic
-elif rare_roll <= 0.804:
-    rare_slot = random.choice(eoe_main_set_rares)
-    pack.append(rare_slot)
+        # Add 3 random uncommons for the uncommon slots
+        for i in range(3):
+                packs.append((random.choice(eoe_uncommons)))
 
 
-for card in pack:
-    print(card["name"])
-    print(card["rarity"])
+        # Choose card for wildcard slot
+        wildcard_roll = random.random()
 
-# with open("rare_stellar_sights", "w") as json_file:
-#         json.dump(rare_stellar_sights, json_file, indent=4)
+        # 0.15% chance for mythic borderless triumphant or surreal space card
+        if wildcard_roll <= 0.0015:
+            wildcard = random.choice(mythic_triumphant_and_surreal_cards)
+            packs.append(wildcard)
+
+        # 0.2% chance for mythic borderless viewport land
+        elif wildcard_roll <= 0.0035:
+            wildcard = random.choice(mythic_borderless_viewport_lands)
+            packs.append(wildcard)
+
+        # 0.25% chance for rare borderless triumphant or surreal space card
+        elif wildcard_roll <= 0.006:
+            wildcard = random.choice(rare_triumphant_and_surreal_cards)
+            packs.append(wildcard)
+
+        # 0.3% chance for main set mythic less 
+        elif wildcard_roll <= 0.009:
+            wildcard = random.choice(eoe_main_set_mythics)
+            packs.append(wildcard)
+
+        # 1% chance for rare borderless viewport land
+        elif wildcard_roll <= 0.019:
+            wildcard = random.choice(rare_borderless_viewport_lands)
+            packs.append(wildcard)
+
+        # 2.5% chance for mythic stellar sights
+        elif wildcard_roll <= 0.044:
+            wildcard = random.choice(mythic_stellar_sights)
+            packs.append(wildcard)
+
+        # 10% chance for rare stellar sights
+        elif wildcard_roll <= 0.144:
+            wildcard = random.choice(rare_stellar_sights)
+            packs.append(wildcard)  
+
+        # 10.6% chance for main set rare
+        elif wildcard_roll <= 0.25:
+            wildcard = random.choice(eoe_main_set_rares)
+            packs.append(wildcard)  
+
+        # 12.5% chance for common
+        elif wildcard_roll <= 0.375:
+            wildcard = random.choice(eoe_commons)
+            packs.append(wildcard)  
+
+        # 62.5% chance for uncommon
+        elif wildcard_roll <= 1.0:
+            wildcard = random.choice(eoe_uncommons)
+            packs.append(wildcard)     
 
 
-# 14 Magic: The Gathering cards
-# 6–7 Commons
-# There are 81 commons from Edge of Eternities that can be found in these slots.
-# In 1.8% of Play Boosters, 1 of 10 non-foil Special Guests cards will replace a common. Of note, Special Guests cards aren't found in the wildcard nor traditional foil slot in Play Boosters.
+        # Rare or mythic slot
+        rare_roll = random.random()
 
-# 3 Uncommons
-# There are 100 uncommons from Edge of Eternities that can be found in these slots.
+        # 0.6% chance for mythic viewport land
+        if rare_roll <= 0.006:
+            rare_slot = random.choice(mythic_borderless_viewport_lands)
+            packs.append(rare_slot)
 
-# 1 Wildcard of any rarity
-# A common (12.5%), uncommon (62.5%), rare (10.6%), or mythic rare (less than 1%) from Edge of Eternities's main set (EOE default frame cards)
-# A rare (10%) or mythic rare (2.5%) Stellar Sights land
-# A rare (1%) or mythic rare (less than 1%) borderless viewport land
-# A rare (less than 1%) or mythic rare (less than 1%) borderless triumphant or surreal space card
+        # 0.8% chance for mythic borderless surreal space or triumphant
+        elif rare_roll <= 0.014:
+            rare_slot = random.choice(mythic_triumphant_and_surreal_cards)
+            packs.append(rare_slot)
 
-# 1 Rare or mythic rare card
-# There are 60 rares and 20 mythic rares from Edge of Eternities that can be found in these slots.
-# A rare (80.4%) or mythic rare (14.2%) from Edge of Eternities's main set
-# A rare (2%) or mythic rare (less than 1%) borderless triumphant card
-# A rare (2%) or mythic rare (less than 1%) borderless surreal space card
-# A mythic rare (less than 1%) borderless viewport land
+        # 4% chance for rare borderless triumphant or surreal space card
+        elif rare_roll <= 0.054:
+            rare_slot = random.choice(rare_triumphant_and_surreal_cards)
+            packs.append(rare_slot)
 
-# 1 Traditional foil card of any rarity
-# A common (58%), uncommon (32%), rare (6.4%), or mythic rare (1.1%) from Edge of Eternities's main set
-# A rare (1%) or mythic rare (less than 1%) Stellar Sights land
-# A rare (less than 1%) or mythic rare (less than 1%) borderless viewport, triumphant, or surreal space card
+        # 14.2% chance for main set mythic
+        elif rare_roll <= 0.196:
+            rare_slot = random.choice(eoe_main_set_mythics)
+            packs.append(rare_slot)
 
-# 1 Land
-# A non-foil (64%) or traditional foil (16%) default frame basic land
-# A non-foil (16%) or traditional foil (4%) borderless celestial basic land
-# 1 Non-foil double-sided token
-# Please note that Play Boosters no longer contain ad cards or art cards.
+        # 80.4% chance for main set rare
+        elif rare_roll <= 1.0:
+            rare_slot = random.choice(eoe_main_set_rares)
+            packs.append(rare_slot)
+
+        # Foil slot
+        foil_roll = random.random()
+
+        # 0.35% chance for mythic triumphant or surreal space card
+        if foil_roll <= 0.0035:
+            foil_slot = random.choice(mythic_triumphant_and_surreal_cards)
+            packs.append(foil_slot)
+
+        # 0.5% chance for mythic Stellar Sights land
+        elif foil_roll <= 0.0085:
+            foil_slot = random.choice(mythic_stellar_sights)
+            packs.append(foil_slot)
+
+        # 0.65% chance for rare borderless triumphant or surreal space card
+        elif foil_roll <= 0.015:
+            foil_slot = random.choice(rare_triumphant_and_surreal_cards)
+            packs.append(foil_slot)
+
+        # 1% chance for rare Stellar Sights land
+        elif foil_roll <= 0.025:
+            foil_slot = random.choice(rare_stellar_sights)
+            packs.append(foil_slot)
+
+        # 1.1% chance for main set mythic
+        elif foil_roll <= 0.036:
+            foil_slot = random.choice(eoe_main_set_mythics)
+            packs.append(foil_slot)
+
+        # 6.4% chance for rare
+        elif foil_roll <= 0.1:
+            foil_slot = random.choice(eoe_main_set_rares)
+            packs.append(foil_slot)
+
+        # 32% chance for uncommon
+        elif foil_roll <= 0.42:
+            foil_slot = random.choice(eoe_uncommons)
+            packs.append(foil_slot)
+
+        # 58% chance for common
+        elif foil_roll <= 1.0:
+            foil_slot = random.choice(eoe_commons)
+            packs.append(foil_slot)
+        
+        pack_count += 1
+
+    return packs
+    
+

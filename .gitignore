@@ -1,2 +1,11 @@
 __pycache__/
 cards.json
+.venv
+.python-version
+pyproject.toml
+uv.lock
+
+
+
+
+
